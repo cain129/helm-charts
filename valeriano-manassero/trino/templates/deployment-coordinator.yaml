@@ -32,7 +32,7 @@ spec:
         - name: config-volume
           configMap:
             name: {{ template "trino.coordinator" . }}
-        {{- if eq .Values.config.coordinator.extraContainers.catalogsMountType "configmap" }}
+        {{- if eq .Values.config.general.catalogsMountType "configmap" }}
         - name: catalog-volume
           configMap:
             name: {{ template "trino.catalog" . }}
@@ -44,7 +44,7 @@ spec:
         - name: schemas-volume
           configMap:
             name: schemas-volume-coordinator
-        {{- if .Values.config.coordinator.extraContainers.authenticationType }}{{- if eq .Values.config.coordinator.extraContainers.authenticationType "PASSWORD" }}
+        {{- if .Values.config.general.authenticationType }}{{- if eq .Values.config.general.authenticationType "PASSWORD" }}
         - name: password-volume
           secret:
             secretName: trino-password-authentication
@@ -147,7 +147,7 @@ spec:
                   -srcstoretype PKCS12 \
                   -srcstorepass "${TRINO_KEYSTORE_PASSWORD}" \
                   -deststorepass "${TRINO_KEYSTORE_PASSWORD}" \
-                  -destkeystore "{{ .Values.config.coordinator.extraContainers.path }}/certs/keystore"
+                  -destkeystore "{{ .Values.config.general.path }}/certs/keystore"
               rm "/tmp/keystore.pfx"
             else
                 echo "Couldn't find the expected PEM certificates! They are mandatory when encryption via TLS is enabled."
@@ -155,7 +155,7 @@ spec:
             fi
             {{- else }}
             if [[ -f "/certs/keystore" ]]; then
-                cp "/certs/keystore" "{{ .Values.config.coordinator.extraContainers.path }}/certs/keystore"
+                cp "/certs/keystore" "{{ .Values.config.general.path }}/certs/keystore"
             else
                 echo "Couldn't find the expected Java Key Stores (JKS) files! They are mandatory when encryption via TLS is enabled."
                 exit 1
