@@ -100,6 +100,7 @@ config:
     #  cpu: 100m
     #  memory: 128Mi
     initContainers: []
+    extraContainers: []
     # worker:
     #   - name: init-worker
     #     image: busybox:1.28
@@ -482,4 +483,3 @@ jmxExporter:
     #   - sourceLabels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_version]
     #     targetLabel: version
 
-extraContainers: {}
