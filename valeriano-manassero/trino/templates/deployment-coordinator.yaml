@@ -184,7 +184,7 @@ spec:
       imagePullSecrets:
         {{- toYaml .Values.imagePullSecrets | nindent 8 }}
       containers:
-        {{- if .Values.config.coordinator.extraContainers }}
+        {{- if ne (len .Values.config.coordinator.extraContainers) 0 }}
         {{-  tpl (toYaml .Values.config.coordinator.extraContainers) . | nindent 10 }}
         {{- end }}
         - name: {{ .Chart.Name }}-coordinator
