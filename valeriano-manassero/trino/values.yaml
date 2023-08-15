@@ -1,11 +1,13 @@
 image:
   repository: trinodb/trino
-  tag: 380
+  tag: 419
   pullPolicy: IfNotPresent
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
     fsGroup: 1000
+
+fullnameOverride: trino
 
 imagePullSecrets: []
 # For example:
@@ -80,7 +82,9 @@ config:
         g1:
           heapRegionSize: "32M"
     jvmExtraConfig: ""
-    extraConfig: {}
+    extraConfig: ""
+    query:
+      maxMemoryPerNode: "1GB"
     #  - "retry-policy=TASK"
     #  - "exchange.compression-enabled=true"
 
@@ -112,7 +116,9 @@ config:
         g1:
           heapRegionSize: "32M"
     jvmExtraConfig: ""
-    extraConfig: {}
+    extraConfig: ""
+    query:
+      maxMemoryPerNode: "1GB"
     #  - "retry-policy=TASK"
     #  - "exchange.compression-enabled=true"
     autoscaler:

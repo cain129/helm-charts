@@ -19,7 +19,7 @@ spec:
         app.kubernetes.io/component: worker
       annotations:
         checksum/config: {{ printf "%s%s" (include (print $.Template.BasePath "/configmap-worker.yaml") .) (include (print $.Template.BasePath "/secret.yaml") .) | sha256sum }}
-    {{- with .Values.podAnnotations }}
+    {{- with .Values.config.worker.podAnnotations }}
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
@@ -48,7 +48,7 @@ spec:
         {{- end }}
         - name: schemas-volume
           configMap:
-            name: schemas-volume-worker
+            name: {{ template "trino.fullname" . }}-schemas-volume-worker
         - name: certs-shared
           emptyDir: {}
         {{- if .Values.jmxExporter.worker.enabled }}

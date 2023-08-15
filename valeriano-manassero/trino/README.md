@@ -1,6 +1,6 @@
 # trino
 
-![Version: 3.0.0](https://img.shields.io/badge/Version-3.0.0-informational?style=flat-square) ![AppVersion: 380](https://img.shields.io/badge/AppVersion-380-informational?style=flat-square)
+![Version: 5.0.0](https://img.shields.io/badge/Version-5.0.0-informational?style=flat-square) ![AppVersion: 419](https://img.shields.io/badge/AppVersion-419-informational?style=flat-square)
 
 High performance, distributed SQL query engine for big data
 
@@ -17,6 +17,10 @@ High performance, distributed SQL query engine for big data
 * <https://github.com/valeriano-manassero/helm-charts>
 * <https://github.com/trinodb/trino>
 
+## Requirements
+
+Kubernetes: `>= 1.25.0-0 < 1.28.0-0`
+
 ## Values
 
 | Key | Type | Default | Description |
@@ -27,7 +31,7 @@ High performance, distributed SQL query engine for big data
 | clusterDomain | string | `"cluster.local"` |  |
 | config.coordinator.affinity | object | `{}` |  |
 | config.coordinator.env | list | `[]` |  |
-| config.coordinator.extraConfig | object | `{}` |  |
+| config.coordinator.extraConfig | string | `""` |  |
 | config.coordinator.initContainers | list | `[]` |  |
 | config.coordinator.jvm.gcMethod.g1.heapRegionSize | string | `"32M"` |  |
 | config.coordinator.jvm.gcMethod.type | string | `"UseG1GC"` |  |
@@ -35,6 +39,7 @@ High performance, distributed SQL query engine for big data
 | config.coordinator.jvmExtraConfig | string | `""` |  |
 | config.coordinator.nodeSelector | object | `{}` |  |
 | config.coordinator.podAnnotations | object | `{}` |  |
+| config.coordinator.query.maxMemoryPerNode | string | `"1GB"` |  |
 | config.coordinator.replicas | int | `1` |  |
 | config.coordinator.resources | object | `{}` |  |
 | config.coordinator.tolerations | list | `[]` |  |
@@ -54,7 +59,6 @@ High performance, distributed SQL query engine for big data
 | config.general.prestoCompatibleHeader | bool | `false` |  |
 | config.general.processForwarded | bool | `false` |  |
 | config.general.query.maxMemory | string | `"3GB"` |  |
-| config.general.query.maxMemoryPerNode | string | `"1GB"` |  |
 | config.general.query.maxTotalMemory | string | `"6GB"` |  |
 | config.worker.affinity | object | `{}` |  |
 | config.worker.autoscaler.enabled | bool | `false` |  |
@@ -62,7 +66,7 @@ High performance, distributed SQL query engine for big data
 | config.worker.autoscaler.stabilizationWindowSeconds | int | `300` |  |
 | config.worker.autoscaler.targetCPUUtilizationPercentage | int | `50` |  |
 | config.worker.env | list | `[]` |  |
-| config.worker.extraConfig | object | `{}` |  |
+| config.worker.extraConfig | string | `""` |  |
 | config.worker.initContainers | list | `[]` |  |
 | config.worker.jvm.gcMethod.g1.heapRegionSize | string | `"32M"` |  |
 | config.worker.jvm.gcMethod.type | string | `"UseG1GC"` |  |
@@ -70,6 +74,7 @@ High performance, distributed SQL query engine for big data
 | config.worker.jvmExtraConfig | string | `""` |  |
 | config.worker.nodeSelector | object | `{}` |  |
 | config.worker.podAnnotations | object | `{}` |  |
+| config.worker.query.maxMemoryPerNode | string | `"1GB"` |  |
 | config.worker.replicas | int | `2` | Replica count when autoscaler is disabled. If autoscaler is enabled, it sets minimum number of replicas. |
 | config.worker.resources | object | `{}` |  |
 | config.worker.tolerations | list | `[]` |  |
@@ -77,13 +82,14 @@ High performance, distributed SQL query engine for big data
 | connectors | object | `{}` |  |
 | eventListenerProperties | object | `{}` |  |
 | faultTolerance.enabled | bool | `false` |  |
+| fullnameOverride | string | `"trino"` |  |
 | groupProvider | object | `{}` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"trinodb/trino"` |  |
 | image.securityContext.fsGroup | int | `1000` |  |
 | image.securityContext.runAsGroup | int | `1000` |  |
 | image.securityContext.runAsUser | int | `1000` |  |
-| image.tag | int | `380` |  |
+| image.tag | int | `419` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
